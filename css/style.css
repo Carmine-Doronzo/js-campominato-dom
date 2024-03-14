@@ -33,6 +33,10 @@
     background-color: rgb(169, 231, 231);
 }
 
+.bg-red{
+    background-color: red;
+}
+
 .dif-10{
     max-width: 700px;
 }

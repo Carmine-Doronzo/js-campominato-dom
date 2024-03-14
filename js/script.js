@@ -8,6 +8,7 @@ const resetDomElement = document.getElementById('reset');
 
 let bombPosition = [];
 
+let points = 0
 
 playDomElement.addEventListener('click', function(){
 
@@ -55,13 +56,23 @@ function createGrid(totalCellsNumber,cellsContainerDomElement){
         cellDomElement.innerHTML =`${numCell}`;
         cellsContainerDomElement.append(cellDomElement);
         cellDomElement.addEventListener('click', function(){
-            cellDomElement.classList.toggle('bg-azure');
+            cellDomElement.classList.add('bg-azure');
             console.log('click sulla casella :', numCell);
             
             if(bombPosition.includes(numCell)){
+                cellDomElement.classList.add('bg-red')
                 console.log('boom')
                 console.log('game over')
+                cellDomElement.removeEventListener('click',function(){
+
+                    cellDomElement.classList.add('bg-azure');
+                    console.log('click sulla casella :', numCell);
                 
+                })
+                
+            }else{
+                points++
+                console.log(points)
             }
            
            
@@ -74,14 +85,13 @@ function createGrid(totalCellsNumber,cellsContainerDomElement){
 }
 
 function generateBomb(maxbomb){
-    const min = 1;
     const max = maxbomb  ;
     const bombNumbers = 16;
 
     const bombArray =[];
 
     while(bombArray.length < bombNumbers ){
-        const bombNumber = Math.floor(Math.random() * max) + min;
+        const bombNumber = Math.floor(Math.random() * max);
 
         let bombPresent = false;
 
