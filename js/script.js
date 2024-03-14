@@ -66,21 +66,34 @@ function createGrid(totalCellsNumber,cellsContainerDomElement){
 
             if (gameOver === false) {
                 cellDomElement.classList.add('bg-azure','disable');
-                console.log('click sulla casella :', numCell);
+                //console.log('click sulla casella :', numCell);
                 
                 if(bombPosition.includes(numCell)){
-                    cellDomElement.classList.add('bg-red')
-                    console.log('boom')
-                    console.log('game over')
-                    console.log('hai totalizzato',points)
+                    cellDomElement.classList.add('bg-red');
+                    console.log('boom');
+                    console.log('game over');
+                    console.log('hai totalizzato',points);
                     containerDomElement.innerHTML += `<h1>hai totalizzato : ${points} punti.`
+                    let cells = document.querySelectorAll('.cell');
+                     for(j = 0; j<bombPosition.length; j++){
+                        const bomb1 = bombPosition[j] - 1
+                        
+                         cells[bomb1].classList.add('bg-red');
+                     }
+
+                    
                     gameOver = true;
                     
                     
                 }else{
-                    points++
-                    console.log(points)
-                }
+                    points++;
+                    console.log(points);
+
+                    if(points === totalCellsNumber - bombPosition.length){
+                        console.log('hai vinto')
+                    }
+                 
+                }   
             }
             
             
@@ -93,19 +106,13 @@ function createGrid(totalCellsNumber,cellsContainerDomElement){
 
         
     } 
+
+    //console.log(numCell,points+bombPosition.length -16)
     
     
 }
 
-/*
-function test () {
 
-}
-
-document.getElementById('testEl').addEventListener('click', test);
-// ...
-document.getElementById('testEl').removeEventListener('click', test);
-*/
 
 function generateBomb(maxbomb){
     const max = maxbomb;
@@ -114,7 +121,7 @@ function generateBomb(maxbomb){
     const bombArray =[];
 
     while(bombArray.length < bombNumbers){
-        const bombNumber = Math.floor(Math.random() * max);
+        const bombNumber = Math.floor(Math.random() * max) + 1;
 
         let bombPresent = false;
 
@@ -134,7 +141,7 @@ function generateBomb(maxbomb){
     return bombArray;
 }
 
-function unmaskedBoom(bomb)
+
 
 
 
