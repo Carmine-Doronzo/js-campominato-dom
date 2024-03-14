@@ -6,6 +6,7 @@ const containerDomElement = document.querySelector('.container');
 
 const resetDomElement = document.getElementById('reset');
 
+let bombPosition = [];
 
 
 playDomElement.addEventListener('click', function(){
@@ -29,15 +30,23 @@ playDomElement.addEventListener('click', function(){
     //  });
     createGrid(gridElement,gridDomElement);
 
-    generateBomb(gridElement);
+    
+
+    
+
+    
 
 })
 
 
 
 function createGrid(totalCellsNumber,cellsContainerDomElement){
+
+    bombPosition = generateBomb(totalCellsNumber);
+    console.log(bombPosition)
     
     for(let i = 0; i < totalCellsNumber; i++){
+
 
         let numCell = i + 1;
         console.log(i)
@@ -49,8 +58,19 @@ function createGrid(totalCellsNumber,cellsContainerDomElement){
             cellDomElement.classList.toggle('bg-azure');
             console.log('click sulla casella :', numCell);
             
+            if(bombPosition.includes(numCell)){
+                console.log('boom')
+                console.log('game over')
+                
+            }
+           
+           
+            
         })
+        
     } 
+    
+    
 }
 
 function generateBomb(maxbomb){
@@ -75,7 +95,10 @@ function generateBomb(maxbomb){
             bombArray.push(bombNumber);
         }
     }
-    console.log(bombArray)
+
+    
+
+    return bombArray;
 }
 
 
