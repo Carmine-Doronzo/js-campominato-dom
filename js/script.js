@@ -8,9 +8,15 @@ const resetDomElement = document.getElementById('reset');
 
 let bombPosition = [];
 
-let points = 0
+let points = 0;
+
+let gameOver = false;
 
 playDomElement.addEventListener('click', function(){
+    
+    points = 0;
+
+    gameOver = false;
 
     containerDomElement.innerHTML = "";
 
@@ -50,47 +56,64 @@ function createGrid(totalCellsNumber,cellsContainerDomElement){
 
 
         let numCell = i + 1;
-        console.log(i)
+        //console.log(i)
         let cellDomElement = document.createElement('div');
         cellDomElement.classList.add('cell');
         cellDomElement.innerHTML =`${numCell}`;
         cellsContainerDomElement.append(cellDomElement);
-        cellDomElement.addEventListener('click', function(){
-            cellDomElement.classList.add('bg-azure');
-            console.log('click sulla casella :', numCell);
-            
-            if(bombPosition.includes(numCell)){
-                cellDomElement.classList.add('bg-red')
-                console.log('boom')
-                console.log('game over')
-                cellDomElement.removeEventListener('click',function(){
 
-                    cellDomElement.classList.add('bg-azure');
-                    console.log('click sulla casella :', numCell);
+        cellDomElement.addEventListener('click', function(){
+
+            if (gameOver === false) {
+                cellDomElement.classList.add('bg-azure','disable');
+                console.log('click sulla casella :', numCell);
                 
-                })
-                
-            }else{
-                points++
-                console.log(points)
+                if(bombPosition.includes(numCell)){
+                    cellDomElement.classList.add('bg-red')
+                    console.log('boom')
+                    console.log('game over')
+                    console.log('hai totalizzato',points)
+                    containerDomElement.innerHTML += `<h1>hai totalizzato : ${points} punti.`
+                    gameOver = true;
+                    
+                    
+                }else{
+                    points++
+                    console.log(points)
+                }
             }
+            
+            
+
+
            
            
             
         })
+
         
     } 
     
     
 }
 
+/*
+function test () {
+
+}
+
+document.getElementById('testEl').addEventListener('click', test);
+// ...
+document.getElementById('testEl').removeEventListener('click', test);
+*/
+
 function generateBomb(maxbomb){
-    const max = maxbomb  ;
+    const max = maxbomb;
     const bombNumbers = 16;
 
     const bombArray =[];
 
-    while(bombArray.length < bombNumbers ){
+    while(bombArray.length < bombNumbers){
         const bombNumber = Math.floor(Math.random() * max);
 
         let bombPresent = false;
@@ -111,6 +134,7 @@ function generateBomb(maxbomb){
     return bombArray;
 }
 
+function unmaskedBoom(bomb)
 
 
 
