@@ -1,0 +1,2 @@
+Esercizio nel quale si riproduce, senza le meccaniche complesse di gioco (conta delle mine vicine, possibilità di inserire le bandierine...), il famosissimo campominato.
+In questo esercizio ho imparato a gestire le funzioni.
